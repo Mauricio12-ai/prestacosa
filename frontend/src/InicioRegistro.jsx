@@ -1,7 +1,20 @@
 import { useState } from 'react'
+import './App.css'
+import logo from './img/logo-sin-fondo.png'
+import fondo from './img/fondo-ini-reg.png'
+
+
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import IconButton from '@mui/material/IconButton'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import InputAdornment from '@mui/material/InputAdornment'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 function InicioRegistro() {
   const [mostrarRegistro, setMostrarRegistro] = useState(false)
+  const [mostrarPassword, setMostrarPassword] = useState(false)
 
   return (
     <>
@@ -9,7 +22,7 @@ function InicioRegistro() {
         <div className="container">
           <a href="/" className="logo-link">
             <div className="logo">
-              <img src="/imagenes/logo/logo-sin-fondo.png" alt="Logo PrestaCasa" className="logo-img" />
+              <img src={logo} alt="Logo PrestaCasa" className="logo-img" />
             </div>
           </a>
           <nav className="nav">
@@ -20,7 +33,12 @@ function InicioRegistro() {
       </header>
 
       <main>
-        <section className="login-seccion">
+        <section
+          className="login-seccion"
+          style={{
+            backgroundImage: `url(${fondo})`
+          }}
+        >
           <div className="container login-container">
             <div className="login-card">
 
@@ -28,24 +46,69 @@ function InicioRegistro() {
               {!mostrarRegistro && (
                 <div>
                   <div className="login-header">
-                    <button className="btn-back" onClick={() => window.history.back()}>←</button>
+                    <IconButton onClick={() => window.history.back()}>
+                      <ArrowBackIcon />
+                    </IconButton>
+
                     <h2>Iniciar sesión</h2>
                   </div>
-                  <p>Accede para ver tus solicitudes y administrar tus objetos prestados.</p>
+
+                  <p>
+                    Accede para ver tus solicitudes y administrar tus objetos prestados.
+                  </p>
+
                   <div className="login-form">
-                    <label htmlFor="email">Correo electrónico</label>
-                    <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required />
 
-                    <label htmlFor="password">Contraseña</label>
-                    <input type="password" id="password" name="password" placeholder="********" required />
+                    <TextField
+                      label="Correo electrónico"
+                      type="email"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                    />
 
-                    <button className="btn btn-primary">Entrar</button>
+                    <TextField
+                      label="Contraseña"
+                      type={mostrarPassword ? 'text' : 'password'}
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+
+                      slotProps={{
+                        input: {
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                onClick={() => setMostrarPassword(!mostrarPassword)}
+                                edge="end"
+                              >
+                                {mostrarPassword ? <VisibilityOff /> : <Visibility />}
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }
+                      }}
+                    />
+
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      sx={{ mt: 2 }}
+                    >
+                      Entrar
+                    </Button>
 
                     <p className="registro-link">
                       ¿No tienes cuenta?{' '}
-                      <a href="#" onClick={(e) => { e.preventDefault(); setMostrarRegistro(true) }} className="subrayado">
+
+
+                      <Button
+                        variant="text"
+                        onClick={() => setMostrarRegistro(true)}
+                      >
                         Registrarse
-                      </a>
+                      </Button>
                     </p>
                   </div>
                 </div>
@@ -54,35 +117,99 @@ function InicioRegistro() {
               {/* Formulario de Registro */}
               {mostrarRegistro && (
                 <div>
+
                   <div className="login-header">
-                    <button className="btn-back" onClick={() => window.history.back()}>←</button>
+                    <IconButton onClick={() => window.history.back()}>
+                      <ArrowBackIcon />
+                    </IconButton>
+
                     <h2>Registro</h2>
                   </div>
-                  <p>Crea tu cuenta para empezar a solicitar y prestar objetos.</p>
-                  <div className="login-form">
-                    <label htmlFor="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
 
-                    <label htmlFor="apellido">Apellido</label>
-                    <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" required />
+                  <p>
+                    Crea tu cuenta para empezar a solicitar y prestar objetos.
+                  </p>
 
-                    <label htmlFor="email-registro">Correo electrónico</label>
-                    <input type="email" id="email-registro" name="email" placeholder="tucorreo@ejemplo.com" required />
+                  <div className="login-form registro-grid">
 
-                    <label htmlFor="password-registro">Contraseña</label>
-                    <input type="password" id="password-registro" name="password" placeholder="********" required />
+                    <TextField
+                      label="Nombre"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                    />
 
-                    <label htmlFor="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" name="telefono" placeholder="(123) 456-7890" required />
+                    <TextField
+                      label="Apellido"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                    />
 
-                    <button className="btn btn-primary">Registrarse</button>
+                    <TextField
+                      label="Correo electrónico"
+                      type="email"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                    />
+
+                    <TextField
+                      label="Contraseña"
+                      type={mostrarPassword ? 'text' : 'password'}
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+
+                      slotProps={{
+                        input: {
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                onClick={() => setMostrarPassword(!mostrarPassword)}
+                                edge="end"
+                              >
+                                {mostrarPassword ? <VisibilityOff /> : <Visibility />}
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }
+                      }}
+                    />
+
+                    <TextField
+                      label="Teléfono"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                    />
+                    <TextField
+                      label="Ubicación"
+                      variant="outlined"
+                      fullWidth
+                      margin="normal"
+                    />
+
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      className="btn-registro"
+                    >
+                      Registrarse
+                    </Button>
 
                     <p className="registro-link">
                       ¿Ya tienes cuenta?{' '}
-                      <a href="#" onClick={(e) => { e.preventDefault(); setMostrarRegistro(false) }} className="subrayado">
+
+                      <Button
+                        variant="text"
+                        onClick={() => setMostrarRegistro(false)}
+                      >
                         Iniciar sesión
-                      </a>
+                      </Button>
                     </p>
+
                   </div>
                 </div>
               )}
@@ -92,7 +219,7 @@ function InicioRegistro() {
         </section>
       </main>
 
-      <footer className="footer">
+      <footer className="footer footer-login">
         <p>&copy; 2024 PrestaCasa - Préstamo de objetos del hogar. Todos los derechos reservados.</p>
       </footer>
     </>
