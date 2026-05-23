@@ -1,0 +1,49 @@
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.feature-card {
+  padding: 2rem;
+  border-radius: 12px;
+  color: white;
+}
+
+.feature-card i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.feature-card.green  { background: #2eac6d; }
+.feature-card.blue   { background: #3b6ef5; }
+.feature-card.purple { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+.inicio-saludo {
+  padding: 2rem 2rem 0 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.inicio-saludo h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.3rem;
+}
+
+.inicio-saludo p {
+  font-size: 0.95rem;
+  color: #6b7280;
+}

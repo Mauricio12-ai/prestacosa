@@ -1,0 +1,117 @@
+.explorar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+}
+ 
+/* ── Título ── */
+.explorar-header {
+  margin-bottom: 2rem;
+}
+ 
+.explorar-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.3rem;
+}
+ 
+.explorar-header p {
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+ 
+/* ── Buscador + Filtro ── */
+.explorar-buscador {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+ 
+/* Input de búsqueda */
+.explorar-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+ 
+.explorar-search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: #9ca3af;
+  pointer-events: none;
+}
+ 
+.explorar-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: #1a1a2e;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+ 
+.explorar-input::placeholder {
+  color: #b0b8c4;
+}
+ 
+.explorar-input:focus {
+  border-color: #20c997;
+  box-shadow: 0 0 0 3px rgba(32, 201, 151, 0.15);
+}
+ 
+/* Select de filtro */
+.explorar-filtro-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+ 
+.explorar-filtro-icon {
+  position: absolute;
+  left: 0.85rem;
+  font-size: 1rem;
+  color: #6b7280;
+  pointer-events: none;
+  z-index: 1;
+}
+ 
+.explorar-select {
+  padding: 0.75rem 1.25rem 0.75rem 2.5rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: #1a1a2e;
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  min-width: 150px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+ 
+.explorar-select:focus {
+  border-color: #20c997;
+  box-shadow: 0 0 0 3px rgba(32, 201, 151, 0.15);
+}
+ 
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .explorar-buscador {
+    flex-direction: column;
+    align-items: stretch;
+  }
+ 
+  .explorar-select {
+    width: 100%;
+  }
+}
