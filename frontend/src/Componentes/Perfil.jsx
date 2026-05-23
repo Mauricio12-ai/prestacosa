@@ -5,21 +5,50 @@ import "./Perfil.css";
 
 const Perfil = () => {
   const { user, updateUser } = useAuth();
-  const [editando, setEditando] = useState(false);
-  const [nuevoNombre, setNuevoNombre] = useState(user?.nombre || "");
-  const [exito, setExito] = useState(false);
 
-  const handleGuardar = () => {
-    if (nuevoNombre.trim() === "") return;
-    updateUser({ nombre: nuevoNombre });
-    setEditando(false);
-    setExito(true);
-    setTimeout(() => setExito(false), 3000); // oculta el mensaje a los 3s
+  // Estado para nombre
+  const [editandoNombre, setEditandoNombre] = useState(false);
+  const [nuevoNombre, setNuevoNombre] = useState(user?.nombre || "");
+
+  // Estado para email
+  const [editandoEmail, setEditandoEmail] = useState(false);
+  const [nuevoEmail, setNuevoEmail] = useState(user?.email || "");
+
+  const [exito, setExito] = useState("");
+
+  const mostrarExito = (mensaje) => {
+    setExito(mensaje);
+    setTimeout(() => setExito(""), 3000);
   };
 
-  const handleCancelar = () => {
+  // Handlers nombre
+  const handleGuardarNombre = () => {
+    if (nuevoNombre.trim() === "") return;
+    updateUser({ nombre: nuevoNombre });
+    setEditandoNombre(false);
+    mostrarExito("✅ Nombre actualizado correctamente");
+  };
+
+  const handleCancelarNombre = () => {
     setNuevoNombre(user?.nombre || "");
-    setEditando(false);
+    setEditandoNombre(false);
+  };
+
+  // Handlers email
+  const handleGuardarEmail = () => {
+    if (nuevoEmail.trim() === "") return;
+    if (!nuevoEmail.includes("@")) {
+      mostrarExito("❌ Ingresa un email válido");
+      return;
+    }
+    updateUser({ email: nuevoEmail });
+    setEditandoEmail(false);
+    mostrarExito("✅ Email actualizado correctamente");
+  };
+
+  const handleCancelarEmail = () => {
+    setNuevoEmail(user?.email || "");
+    setEditandoEmail(false);
   };
 
   return (
@@ -40,18 +69,17 @@ const Perfil = () => {
         <h2 className="perfil-nombre">{user?.nombre}</h2>
         <p className="perfil-email">{user?.email}</p>
 
-        {/* Mensaje de éxito */}
+        {/* Mensaje éxito/error */}
         {exito && (
-          <div className="perfil-exito">
-            ✅ Nombre actualizado correctamente
+          <div className={`perfil-exito ${exito.startsWith("❌") ? "error" : ""}`}>
+            {exito}
           </div>
         )}
 
-        {/* Sección editar nombre */}
+        {/* Nombre */}
         <div className="perfil-seccion">
           <label className="perfil-label">Nombre completo</label>
-
-          {editando ? (
+          {editandoNombre ? (
             <div className="perfil-editar">
               <input
                 type="text"
@@ -61,31 +89,45 @@ const Perfil = () => {
                 autoFocus
               />
               <div className="perfil-botones">
-                <button className="btn-guardar" onClick={handleGuardar}>
-                  Guardar
-                </button>
-                <button className="btn-cancelar" onClick={handleCancelar}>
-                  Cancelar
-                </button>
+                <button className="btn-guardar" onClick={handleGuardarNombre}>Guardar</button>
+                <button className="btn-cancelar" onClick={handleCancelarNombre}>Cancelar</button>
               </div>
             </div>
           ) : (
             <div className="perfil-valor">
               <span>{user?.nombre}</span>
-              <button className="btn-editar" onClick={() => setEditando(true)}>
+              <button className="btn-editar" onClick={() => setEditandoNombre(true)}>
                 <i className="ti ti-pencil"></i> Editar
               </button>
             </div>
           )}
         </div>
 
-        {/* Email (solo lectura por ahora) */}
+        {/* Email */}
         <div className="perfil-seccion">
           <label className="perfil-label">Email</label>
-          <div className="perfil-valor readonly">
-            <span>{user?.email}</span>
-            <span className="perfil-badge">Solo lectura</span>
-          </div>
+          {editandoEmail ? (
+            <div className="perfil-editar">
+              <input
+                type="email"
+                value={nuevoEmail}
+                onChange={(e) => setNuevoEmail(e.target.value)}
+                className="perfil-input"
+                autoFocus
+              />
+              <div className="perfil-botones">
+                <button className="btn-guardar" onClick={handleGuardarEmail}>Guardar</button>
+                <button className="btn-cancelar" onClick={handleCancelarEmail}>Cancelar</button>
+              </div>
+            </div>
+          ) : (
+            <div className="perfil-valor">
+              <span>{user?.email}</span>
+              <button className="btn-editar" onClick={() => setEditandoEmail(true)}>
+                <i className="ti ti-pencil"></i> Editar
+              </button>
+            </div>
+          )}
         </div>
 
       </div>

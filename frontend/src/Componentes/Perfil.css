@@ -183,3 +183,8 @@
 }
 
 .btn-editar:hover { background: #e5e7eb; }
+.perfil-exito.error {
+  background: #fff0f0;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
