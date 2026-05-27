@@ -1,12 +1,14 @@
 // Componentes/Explorar.jsx
 import { useState } from "react";
 import { useObjetos } from "../Context/ObjetosContext";
+import { useNavigate } from "react-router-dom";        // ← agrega
 import "./Explorar.css";
 
 const categorias = ["Todas", "Herramientas", "Deportes", "Cocina", "Electrónica", "Ropa", "Jardín"];
 
 const Explorar = () => {
   const { objetos } = useObjetos();
+  const navigate = useNavigate();                       // ← agrega
   const [busqueda, setBusqueda] = useState("");
   const [categoria, setCategoria] = useState("Todas");
 
@@ -88,6 +90,14 @@ const Explorar = () => {
                   </div>
                 </div>
               </div>
+
+              <button
+                className="btn-ver-detalle"
+                onClick={() => navigate(`/objeto/${obj.id}`)}
+              >
+                Ver detalle
+              </button>
+
             </div>
           </div>
         ))}

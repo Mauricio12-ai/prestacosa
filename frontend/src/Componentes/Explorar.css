@@ -238,4 +238,22 @@
 
 @media (max-width: 600px) {
   .explorar-grid { grid-template-columns: 1fr; }
+
 }
+
+.btn-ver-detalle {
+  width: 100%;
+  padding: 0.6rem;
+  background: linear-gradient(135deg, #20c997, #0ea67a);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: opacity .2s;
+}
+
+.btn-ver-detalle:hover { opacity: 0.88; }
