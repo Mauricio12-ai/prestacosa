@@ -60,7 +60,17 @@ export const AuthProvider = ({ children }) => {
   const updateUser = (datos) => {
     setUser((prev) => {
       const actualizado = { ...prev, ...datos };
+
+      // Actualiza la sesión activa
       localStorage.setItem("user", JSON.stringify(actualizado));
+
+      // Actualiza también en la lista de usuarios ← esto faltaba
+      const usuarios = inicializarUsuarios();
+      const nuevaLista = usuarios.map((u) =>
+        u.id === prev.id ? actualizado : u
+      );
+      localStorage.setItem("usuarios", JSON.stringify(nuevaLista));
+
       return actualizado;
     });
   };
