@@ -2,33 +2,43 @@
 import { createContext, useContext, useState } from "react";
 import objetosIniciales from "../data/objetos";
 
-// 1. Crear el contexto
 const ObjetosContext = createContext();
 
-// 2. Crear el Provider
 export const ObjetosProvider = ({ children }) => {
-  const [objetos, setObjetos] = useState(objetosIniciales);
 
-  // Agregar un objeto nuevo
+  const inicializar = () => {
+    const guardado = localStorage.getItem("objetos");
+    if (!guardado) {
+      localStorage.setItem("objetos", JSON.stringify(objetosIniciales));
+      return objetosIniciales;
+    }
+    return JSON.parse(guardado);
+  };
+
+  const [objetos, setObjetos] = useState(inicializar);
+
+  const guardar = (lista) => {
+    setObjetos(lista);
+    localStorage.setItem("objetos", JSON.stringify(lista));
+  };
+
   const agregarObjeto = (nuevoObjeto) => {
     const objeto = {
       ...nuevoObjeto,
-      id: objetos.length + 1,  // id temporal sin backend
+      id: objetos.length + 1,
       rating: 0,
     };
-    setObjetos([...objetos, objeto]);
+    guardar([...objetos, objeto]);
   };
 
-  // Editar un objeto existente
   const editarObjeto = (id, datosActualizados) => {
-    setObjetos(objetos.map((obj) =>
+    guardar(objetos.map((obj) =>
       obj.id === id ? { ...obj, ...datosActualizados } : obj
     ));
   };
 
-  // Eliminar un objeto
   const eliminarObjeto = (id) => {
-    setObjetos(objetos.filter((obj) => obj.id !== id));
+    guardar(objetos.filter((obj) => obj.id !== id));
   };
 
   return (
@@ -38,5 +48,4 @@ export const ObjetosProvider = ({ children }) => {
   );
 };
 
-// 3. Hook personalizado
 export const useObjetos = () => useContext(ObjetosContext);
